@@ -1,4 +1,5 @@
 import 'package:donationproject/layout/cubit/cubit.dart';
+import 'package:donationproject/layout/cubit/states.dart';
 import 'package:donationproject/layout/layout.dart';
 import 'package:donationproject/modules/login_page/cubit/states.dart';
 import 'package:donationproject/modules/registe_page/register_delivery_screen.dart';
@@ -29,13 +30,21 @@ class LoginScreen extends StatelessWidget {
                 .then((value) {
               userId = state.userId;
               MainCubit.get(context).getUserData();
-              MainCubit.get(context).userModel!.image;
+              MainCubit.get(context).userModel?.image;
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => LayoutScreen()),
                 (route) => false,
               );
+
             });
+          }
+          if(state is GetUserSuccessState){
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => LayoutScreen()),
+                  (route) => false,
+            );
           }
         },
         builder: (context, state) {
@@ -56,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
-                          top: 320,
+                          top: 250,
                           left: 16.0,
                           right: 16.0,
                           bottom: 16.0,
@@ -72,6 +81,10 @@ class LoginScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            if(state is GetUserLoadingState)
+                           const SizedBox(height: 5,),
+                            if(state is GetUserLoadingState)
+                           const LinearProgressIndicator(color: Color.fromRGBO(29, 38, 125, 10),),
                             const SizedBox(
                               height: 16,
                             ),
@@ -127,12 +140,14 @@ class LoginScreen extends StatelessWidget {
                               height: 30,
                             ),
                             ElevatedButton(
+                              style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => const  Color.fromRGBO(29, 38, 125, 10))),
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   LoginCubit.get(context).userLogin(
                                     email: emailController.text,
                                     password: passwordController.text,
                                   );
+
                                 }
                               },
                               child: Text(
@@ -164,7 +179,7 @@ class LoginScreen extends StatelessWidget {
                                     "Register",
                                     style: GoogleFonts.cagliostro(
                                       fontSize: 16,
-                                      color: Colors.white,
+                                      color: const Color.fromRGBO(29, 38, 125, 10),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -178,7 +193,7 @@ class LoginScreen extends StatelessWidget {
                                   "join us to be part of our team",
                                   style: GoogleFonts.cagliostro(
                                     color: Colors.white.withOpacity(.9),
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -193,7 +208,7 @@ class LoginScreen extends StatelessWidget {
                                     "Sign Up here",
                                     style: GoogleFonts.cagliostro(
                                       fontSize: 16,
-                                      color: Colors.white,
+                                      color:const Color.fromRGBO(29, 38, 125, 10),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

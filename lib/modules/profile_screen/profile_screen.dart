@@ -36,15 +36,21 @@ class ProfileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if(state is UserUpdateLoading )
-                    LinearProgressIndicator(),
-                   const SizedBox(height: 20,),
+                    SizedBox(height: 10,),
+                    if(state is UserUpdateLoading  )
+                    const LinearProgressIndicator(color: const Color.fromRGBO(29, 38,125, 10),),
+                    if(state is UserUpdateLoading )
+                   const SizedBox(height: 10,),
+
                     Center(
                       child:
                       Stack(
                     children: [
                        CircleAvatar(
                         radius: 73,
+                        backgroundColor: const Color.fromRGBO(29, 38,125, 10),
                         child: CircleAvatar(
+
                           radius: 70,
                           backgroundImage: profileImage == null
                               ? NetworkImage(
@@ -60,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                         },
                         icon: const CircleAvatar(
                           radius: 16,
-                          backgroundColor: Colors.blueAccent,
+                          backgroundColor: const Color.fromRGBO(29, 38,125, 10),
                           child: CircleAvatar(
                             radius: 14,
                             backgroundColor:
@@ -68,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                             child: Icon(
                              CupertinoIcons.camera,
                               size: 16,
-                              color: Colors.blueAccent,
+                              color:const Color.fromRGBO(29, 38,125, 10),
                             ),
                           ),
                         ),
@@ -77,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                 )
 
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 30,),
                     TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -88,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                color: Colors.blueAccent),
+                                color:  Color.fromRGBO(92, 70,156, 10,)),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -100,9 +106,9 @@ class ProfileScreen extends StatelessWidget {
                             'Name',
                           ),
                           floatingLabelStyle:
-                          const TextStyle(color:  CupertinoColors.systemBlue),
+                          const TextStyle(color:  const Color.fromRGBO(29, 38,125, 10),),
                         )),
-                   const SizedBox(height: 20,),
+                   const SizedBox(height: 30,),
                     TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -113,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                color: Colors.blueAccent),
+                                color:  Color.fromRGBO(92, 70,156, 10,)),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -125,10 +131,11 @@ class ProfileScreen extends StatelessWidget {
                             'Phone',
                           ),
                           floatingLabelStyle:
-                          const TextStyle(color:  CupertinoColors.systemBlue),
+                          const TextStyle(color:  const Color.fromRGBO(29, 38,125, 10),),
                         )),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 30,),
                     TextFormField(
+
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Address must not empty';
@@ -138,10 +145,12 @@ class ProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                color: Colors.blueAccent),
+                                color:  Color.fromRGBO(92, 70,156, 10,)),
                             borderRadius: BorderRadius.circular(20),
                           ),
+
                           focusedBorder: OutlineInputBorder(
+
                             borderSide:
                             const BorderSide(color: CupertinoColors.systemBlue),
                             borderRadius: BorderRadius.circular(20),
@@ -150,9 +159,9 @@ class ProfileScreen extends StatelessWidget {
                             'Address',
                           ),
                           floatingLabelStyle:
-                          const TextStyle(color:  CupertinoColors.systemBlue),
+                          const TextStyle(color:  const Color.fromRGBO(29, 38,125, 10),),
                         )),
-                    SizedBox(height: 40,),
+                    SizedBox(height: 60,),
                     Row(
                       children: [
                         Expanded(
@@ -160,8 +169,8 @@ class ProfileScreen extends StatelessWidget {
                             width: double.infinity,
                             height: 50,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: CupertinoColors.systemBlue,
+                              borderRadius: BorderRadius.circular(10),
+                              color:const Color.fromRGBO(29, 38,125, 10),
                             ),
                             child: TextButton(
                                 onPressed: () {
@@ -193,8 +202,8 @@ class ProfileScreen extends StatelessWidget {
                               height: 50,
                               decoration: BoxDecoration(
                                 borderRadius:
-                                BorderRadius.circular(5),
-                                color: CupertinoColors.systemBlue,
+                                BorderRadius.circular(10),
+                                color: const Color.fromRGBO(29, 38,125, 10),
                               ),
                               child: TextButton(
                                   onPressed: () {

@@ -1,6 +1,8 @@
 
+import 'package:donationproject/modules/donate_screen/donate_screnn_food.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'donate_scree_money.dart';
 
@@ -8,108 +10,74 @@ class DonateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: CupertinoColors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(
-          color: CupertinoColors.black,
-        ),
-        title: Text('Donate',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: CupertinoColors.black),),
-        centerTitle:true,
-      ),
+
       backgroundColor: CupertinoColors.white,
       body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-              children: [
-
-                 Material(
-                   elevation: 10,
-                   borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-                   child: Container(
-                     height: 200,
-                     decoration: BoxDecoration(
-                       borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-                       border: Border.all(),
-                       image: DecorationImage(
-                           image: AssetImage('assets/images/donate1.jpg'),
-                         fit: BoxFit.cover,
-                         ),
-                       ),
-
-                     ),
-                 ),
-                Material(
-                  elevation: 10,
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),bottomLeft: Radius.circular(25)),
-                  child: Container(
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),bottomLeft: Radius.circular(25)),
-                      border: Border.all(),
+        padding: const EdgeInsets.only(left: 25,top: 40,right: 25,bottom: 25),
+        child: Column(
+          children: [
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>DonateScreenWithMoney()));
+              },
+              child: Container(
+                height: 100,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                        begin: Alignment.center,
+                        end: Alignment.topLeft,
+                        colors: [Color.fromRGBO(92, 70,156, 10),Color.fromRGBO(12, 19,79, 10)]
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text('Donate with money',style: TextStyle(fontSize: 24),),
-                          Spacer(),
-                          IconButton(onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DonateScreenWithMoney()));
-                          }, icon: Icon(Icons.arrow_forward_ios_rounded))
-                        ],
-                      ),
-                    ),
-
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      Text('Donate with money',style: GoogleFonts.cairo(fontWeight: FontWeight.bold,fontSize: 24,color: Colors.white),),
+                      const Spacer(),
+                      const Icon(Icons.monetization_on_outlined,color: Colors.white,size: 40,),
+                    ],
                   ),
                 ),
-                SizedBox(height: 20,),
-                Material(
-                   elevation: 10,
-                   borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-                   child: Container(
-                     height: 200,
-                     decoration: BoxDecoration(
-                       borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-                       border: Border.all(),
-                       image: DecorationImage(
-                           image: AssetImage('assets/images/donation2.jpg'),
-                         fit: BoxFit.cover,
-                         ),
-                       ),
-
-                     ),
-                 ),
-                Material(
-                  elevation: 10,
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),bottomLeft: Radius.circular(25)),
-                  child: Container(
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),bottomLeft: Radius.circular(25)),
-                      border: Border.all(),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text('Donate with food',style: TextStyle(fontSize: 24),),
-                          Spacer(),
-                          IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_rounded))
-                        ],
-                      ),
-                    ),
-
+              ),
+            ),
+       const     SizedBox(height: 40,),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>DonateWithFood()));
+              },
+              child: Container(
+                height: 100,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                      begin: Alignment.center,
+                      end: Alignment.topLeft,
+                      colors: [Color.fromRGBO(92, 70,156, 10),Color.fromRGBO(12, 19,79, 10)]
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      Text('Donate with food',style: GoogleFonts.cairo(fontWeight: FontWeight.bold,fontSize: 24,color: Colors.white),),
+                      Spacer(),
+                      Icon(Icons.fastfood_rounded,color: Colors.white,size: 40,),
+                    ],
                   ),
                 ),
+              ),
+            ),
+          ],
+        )
 
 
 
-
-              ]
-          ),
-        ),
       ),
     );
   }

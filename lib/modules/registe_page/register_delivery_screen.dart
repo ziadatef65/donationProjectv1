@@ -61,7 +61,7 @@ class RegisterDeliveryScreen extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
-                          top: 160,
+                          top: 100,
                           left: 16.0,
                           right: 16.0,
                           bottom: 23,
@@ -77,6 +77,10 @@ class RegisterDeliveryScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            if(state is RegisterLoadingState)
+                              SizedBox(height: 20,),
+                            if(state is RegisterLoadingState)
+                              const  LinearProgressIndicator(color: Color.fromRGBO(29, 38, 125, 10), ),
                             const SizedBox(
                               height: 16,
                             ),
@@ -207,6 +211,7 @@ class RegisterDeliveryScreen extends StatelessWidget {
                               height: 30,
                             ),
                             ElevatedButton(
+                              style: ButtonStyle(                                backgroundColor: MaterialStateColor.resolveWith((states) => const Color.fromRGBO(29, 38, 125, 10)),),
                               onPressed: () {
                                 if(formKey.currentState!.validate())
                                 {
@@ -216,6 +221,7 @@ class RegisterDeliveryScreen extends StatelessWidget {
                                     phone: phoneController.text,
                                     address: addressController.text,
                                     password: passwordController.text,
+
                                   );
                                 }
                               },

@@ -1,5 +1,6 @@
 import 'package:donationproject/layout/cubit/cubit.dart';
 import 'package:donationproject/layout/cubit/states.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,28 +14,33 @@ import '../shared/components/constants.dart';
 import '../shared/network/local/cache_helper.dart';
 
 class LayoutScreen extends StatelessWidget {
-  const LayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MainCubit, DonationStates>(
-      listener: (context, state) {},
+    return  BlocConsumer<MainCubit, DonationStates>(
+      listener: (context, state) {
+      },
       builder: (context, state) {
         var cubit = MainCubit.get(context);
         var userModel = MainCubit.get(context).userModel;
-        return Scaffold(
+        return
+          state is GetUserLoadingState ?
+              const Scaffold(
+                backgroundColor: Colors.white,
+        body:Center ( child :CircularProgressIndicator())
+              ): Scaffold(
           appBar: AppBar(
+            toolbarHeight: 80,
             leadingWidth: double.infinity,
-
             leading: Padding(
-              padding: const EdgeInsets.only(left: 25,top: 10),
+              padding: const EdgeInsets.only(left: 20,top: 1),
               child: Row(
                   children: [
-                const SizedBox(
-                  width: 18,
-                ),
+                // const SizedBox(
+                //   width: 18,
+                // ),
                 CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   backgroundImage: NetworkImage('${userModel?.image}'),
                 ),
                     const SizedBox(
@@ -44,13 +50,13 @@ class LayoutScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 4,
+                          height: 22,
                         ),
-                        Text('Hello,',style: TextStyle(color: CupertinoColors.systemBlue),),
+                        const Text('Hello,',style: TextStyle(color: Color.fromRGBO(29, 38,125, 10),fontWeight: FontWeight.bold,fontSize: 16),),
                         Text('${userModel?.name}',
                             style: GoogleFonts.inter(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.black)),
 
                       ],
@@ -67,11 +73,12 @@ class LayoutScreen extends StatelessWidget {
                 child: Text(
                   'Logout',
                   style: GoogleFonts.cairo(
-                      color: CupertinoColors.systemBlue, fontWeight: FontWeight.bold),
+                      color:const Color.fromRGBO(29, 38,125, 10), fontWeight: FontWeight.bold,fontSize: 16),
                 ),
                 onPressed: () {
-                  CacheHelper.removeData(key: 'userId')?.then((value) {
+                  CacheHelper.removeData(key: 'userId')?.then((value) async {
                     if (value!) {
+                      await FirebaseAuth.instance.signOut();
                       userId = null;
                       Navigator.pushAndRemoveUntil(
                           context,
@@ -87,41 +94,60 @@ class LayoutScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: cubit.screens[cubit.currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
+          body: userModel?.isDelivery == true ? cubit.screens2[cubit.currentIndex] :cubit.screens[cubit.currentIndex],
+          bottomNavigationBar:
+          userModel?.isDelivery ==  true ? BottomNavigationBar(
             onTap: (index) {
               cubit.changeBottomNavBar(index);
             },
             currentIndex: cubit.currentIndex,
             backgroundColor: CupertinoColors.white,
-            selectedItemColor: CupertinoColors.systemBlue,
+            selectedItemColor: const Color.fromRGBO(29, 38,125, 10),
             unselectedItemColor: Colors.black,
             selectedLabelStyle:
-                const TextStyle(color: CupertinoColors.systemBlue),
+            const TextStyle(color: const Color.fromRGBO(29, 38,125, 10),),
             elevation: 0,
-            items: [
-              if (userModel!.isAdmin == false)
-              const BottomNavigationBarItem(
+            items:  [
+              const BottomNavigationBarItem(icon: Icon(Icons.delivery_dining_outlined,), label: 'Order',),
+              const BottomNavigationBarItem(icon: Icon(CupertinoIcons.profile_circled), label: 'Profile'),
+              if(userModel?.superAdmin == true)
+                const BottomNavigationBarItem(icon: Icon(CupertinoIcons.home,), label: 'Home',),
+              if(userModel?.superAdmin == true)
+                const BottomNavigationBarItem(icon: Icon(CupertinoIcons.heart,), label: 'Donate'),
+              if(userModel?.superAdmin == true)
+              const BottomNavigationBarItem(icon: Icon(Icons.admin_panel_settings_outlined), label: 'Admin'),
+
+            ],
+          ):BottomNavigationBar(
+            onTap: (index) {
+              cubit.changeBottomNavBar(index);
+            },
+            currentIndex: cubit.currentIndex,
+            backgroundColor: CupertinoColors.white,
+            selectedItemColor:const Color.fromRGBO(29, 38,125, 10),
+            unselectedItemColor: Colors.black,
+            selectedLabelStyle:
+            const TextStyle(color: const Color.fromRGBO(29, 38,125, 10),),
+            elevation: 0,
+            items: const [
+
+              BottomNavigationBarItem(
                 icon: Icon(
                   CupertinoIcons.home,
                 ),
                 label: 'Home',
               ),
-              if (userModel!.isAdmin == false)
-              const BottomNavigationBarItem(
+              BottomNavigationBarItem(
                   icon: Icon(
                     CupertinoIcons.heart,
                   ),
                   label: 'Donate'),
-
-              const BottomNavigationBarItem(
+              BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.profile_circled), label: 'Profile'),
-              if (userModel!.isAdmin == true)
-                const BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.list_bullet), label: 'Order'),
+
             ],
           ),
-        );
+        ) ;
       },
     );
   }

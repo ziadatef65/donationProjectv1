@@ -1,5 +1,6 @@
 import 'package:donationproject/layout/cubit/cubit.dart';
 import 'package:donationproject/layout/cubit/states.dart';
+import 'package:donationproject/modules/delivery/add_your_information/add_your_inforamtion1_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,28 +12,35 @@ class AddInformationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MainCubit, DonationStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state is UpdateSuccessState)
+          {
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>AddInformationScreen1()), (route) => false);
+          }
+      },
       builder: (context, state) {
+        var profileImage = MainCubit.get(context).profileImage;
         var cubit = MainCubit.get(context);
         var userModel = MainCubit.get(context).userModel;
         return Scaffold(
+          backgroundColor: Colors.white,
           body: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Text(
                   'You must complete this important information to be able to continue:',
                   style: GoogleFonts.cairo(
                       fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  height: 550,
+                  height: 600,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -41,65 +49,67 @@ class AddInformationScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: Column(
+
                       children: [
+                        if(state is UploadLoadingState)
+                          const LinearProgressIndicator(),
+                        const  SizedBox(height: 40,),
                         Center(
                           child: CircleAvatar(
-                            radius: 60,
-                            backgroundImage: NetworkImage('${cubit.profileImage}'),
+                            radius: 90,
+                            backgroundImage: profileImage == null ? NetworkImage('${userModel?.image}'):FileImage(profileImage)as ImageProvider,
                           ),
                         ),
-                        SizedBox(height: 20,),
-                        Container(
-                          width: double.infinity,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: CupertinoColors.systemBlue,
-                          ),
-                          child: TextButton(
-                              onPressed: () {
-                                cubit.getProfileImage();
-                              },
-                              child: Text(
-                                'Upload your Image',
-                                style: GoogleFonts.cairo(
-                                    color: Colors.white, fontSize: 20),
-                              )),
+                       const Expanded(child: SizedBox(height: 20,)),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                width: double.infinity,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: CupertinoColors.systemBlue,
+                                ),
+                                child: TextButton(
+                                    onPressed: () {
+                                      cubit.getProfileImage();
+                                    },
+                                    child: Text(
+                                      'Upload your Image',
+                                      style: GoogleFonts.cairo(
+                                          color: Colors.white, fontSize: 16),
+                                    )),
+                              ),
+                            ),
+                            const SizedBox(width: 10,),
+                            Expanded(
+                              child: Container(
+                                width: double.infinity,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: CupertinoColors.systemBlue,
+                                ),
+                                child: TextButton(
+                                    onPressed: () {
+                                      cubit.uploadProfileDeliveryImage(name: userModel!.name!, phone: userModel.phone!, address: userModel.address!);
+                                    },
+                                    child: Text(
+                                      'Update your Image',
+                                      style: GoogleFonts.cairo(
+                                          color: Colors.white, fontSize: 16),
+                                    )),
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 40,),
-                        Container(
-                          width: double.infinity,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Image(image: NetworkImage('${cubit.nationalId}'),),
-
-                        ),
-                        SizedBox(height: 15,),
-                        Container(
-                          width: double.infinity,
-                          height: 50,
-
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: CupertinoColors.systemBlue,
-                          ),
-                          child: TextButton(
-                              onPressed: () {
-                                cubit.getNationalId();
-                              },
-                              child: Text(
-                                'Upload your national id',
-                                style: GoogleFonts.cairo(
-                                    color: Colors.white, fontSize: 20),
-                              )),
-                        ),
+                        const  SizedBox(height: 20,)
                       ],
                     ),
                   ),
                 ),
+
 
               ],
             ),

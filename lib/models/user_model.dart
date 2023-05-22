@@ -6,7 +6,13 @@ class UserModel {
   String? address;
   String? image;
   String? nationalId;
-  bool? isAdmin;
+  bool? isDelivery;
+  bool? superAdmin;
+  bool? orderNow;
+  String? orderId;
+  String? deliveryId;
+  int? numberOfDonationFood;
+  int? numberOfDonationMoney;
 
 
 
@@ -17,9 +23,14 @@ class UserModel {
     this.address,
     this.name,
     this.userId,
-    this.isAdmin,
+    this.isDelivery,
     this.nationalId,
-
+    this.orderId,
+    this.orderNow,
+    this.deliveryId,
+    this.superAdmin,
+    this.numberOfDonationFood,
+    this.numberOfDonationMoney,
 
   });
 
@@ -30,8 +41,14 @@ class UserModel {
     address = json['address'];
     userId = json['userId'];
     image = json['image'];
-    isAdmin = json['isAdmin'];
+    isDelivery = json['isDelivery'];
     nationalId = json['nationalId'];
+    orderId= json['orderId'];
+    orderNow= json['orderNow'];
+    deliveryId= json['deliveryId'];
+    numberOfDonationFood= json['numberOfDonationFood'];
+    numberOfDonationMoney= json['numberOfDonationMoney'];
+    superAdmin= json['superAdmin'];
 
   }
 
@@ -45,8 +62,14 @@ class UserModel {
       'phone':phone,
       'userId':userId,
       'image':image,
-      'isAdmin':isAdmin,
+      'isDelivery':isDelivery,
       'nationalId':nationalId,
+      'orderId':orderId,
+      'orderNow':orderNow,
+      'deliveryId':deliveryId,
+      'numberOfDonationFood':numberOfDonationFood,
+      'numberOfDonationMoney':numberOfDonationMoney,
+      'superAdmin':superAdmin,
     };
   }
 

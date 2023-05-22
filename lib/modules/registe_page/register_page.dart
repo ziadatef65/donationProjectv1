@@ -38,7 +38,7 @@ class RegisterScreen extends StatelessWidget {
             });
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const LayoutScreen()),
+                MaterialPageRoute(builder: (context) =>  LayoutScreen()),
                 (route) => false);
           }
         },
@@ -60,7 +60,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
-                          top: 160,
+                          top: 100,
                           left: 16.0,
                           right: 16.0,
                           bottom: 23,
@@ -76,6 +76,10 @@ class RegisterScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            if(state is RegisterLoadingState)
+                              SizedBox(height: 20,),
+                            if(state is RegisterLoadingState)
+                             const  LinearProgressIndicator(color: Color.fromRGBO(29, 38, 125, 10), ),
                             const SizedBox(
                               height: 16,
                             ),
@@ -88,6 +92,7 @@ class RegisterScreen extends StatelessWidget {
 
                                 },
                                 controller:nameController ,
+                                keyboardType: TextInputType.name,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white.withOpacity(0.5),
@@ -105,13 +110,15 @@ class RegisterScreen extends StatelessWidget {
                               height: 30,
                             ),
                             Flexible(
+
                               child: TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Email must not be empty';
                                   }
 
-                                },
+                                }, keyboardType: TextInputType.emailAddress,
+
                                 controller: emailController,
                                 decoration: InputDecoration(
                                   filled: true,
@@ -131,20 +138,25 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             Flexible(
                               child: TextFormField(
+                                  keyboardType: TextInputType.text,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Password must not be empty';
                                   }
 
                                 },
+
                                 controller: passwordController,
                                 decoration: InputDecoration(
                                   filled: true,
+
                                   fillColor: Colors.white.withOpacity(0.5),
                                   prefixIcon: const Icon(Icons.lock),
                                   hintText: "Password",
+
                                   hintStyle: GoogleFonts.cagliostro(),
                                   border: OutlineInputBorder(
+
                                     borderRadius: BorderRadius.circular(8.0),
                                     borderSide: BorderSide.none,
                                   ),
@@ -156,6 +168,7 @@ class RegisterScreen extends StatelessWidget {
                               height: 30,
                             ),
                             Flexible(
+
                               child: TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -163,6 +176,7 @@ class RegisterScreen extends StatelessWidget {
                                   }
 
                                 },
+                                keyboardType: TextInputType.streetAddress,
                                 controller: addressController,
                                 decoration: InputDecoration(
                                   filled: true,
@@ -188,6 +202,7 @@ class RegisterScreen extends StatelessWidget {
                                   }
 
                                 },
+                                keyboardType: TextInputType.phone,
                                 controller: phoneController,
                                 decoration: InputDecoration(
                                   filled: true,
@@ -206,6 +221,9 @@ class RegisterScreen extends StatelessWidget {
                               height: 30,
                             ),
                             ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateColor.resolveWith((states) => const Color.fromRGBO(29, 38, 125, 10)),
+                              ),
                               onPressed: () {
                                 if(formKey.currentState!.validate())
                                 {

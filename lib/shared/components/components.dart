@@ -21,7 +21,7 @@ Color? chooseToastColor(ToastState state) {
   Color color;
   switch (state) {
     case ToastState.SUCCESS:
-      color = Colors.green;
+      color = Color.fromRGBO(92, 70,156, 10);
       break;
     case ToastState.ERROR:
       color = Colors.red;

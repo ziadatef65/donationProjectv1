@@ -9,7 +9,25 @@
 .history
 .svn/
 migrate_working_dir/
-
+# Flutter/Dart specific files
+**/ios/Pods/
+**/android/.gradle/
+**/android/app/build/
+**/android/build/
+**/build/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+build/
+ios/Pods/
+lib/generated_plugin_registrant.dart
+.ios/
+.android/
+.idea/
+.vscode/
 # IntelliJ related
 *.iml
 *.ipr
@@ -31,6 +49,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+
 
 # Symbolication related
 app.*.symbols

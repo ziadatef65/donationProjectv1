@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:donationproject/modules/registe_page/cubit/states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,8 +55,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
       address: address,
       userId: userId,
       email: email,
-      image: 'https://cdn-icons-png.flaticon.com/512/1177/1177568.png',
-      isAdmin: false,
+      image: 'https://cdn-icons-png.flaticon.com/512/453/453497.png?w=996&t=st=1684488294~exp=1684488894~hmac=9b33c967ced87a7313135b14f577416b4a527e5b4362fdecfcb0ce00f607fc40',
+      isDelivery: false,
+        numberOfDonationFood:0,
+        numberOfDonationMoney: 0,
     );
     FirebaseFirestore.instance
         .collection('users')
@@ -82,7 +86,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       password: password,
     )
         .then((value) {
-      userCreate(
+      userDeliveryCreate(
         name: name,
         email: email,
         phone: phone,
@@ -108,9 +112,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
       address: address,
       userId: userId,
       email: email,
-      nationalId: 'https://img.freepik.com/free-vector/id-card-illustration_23-2147833318.jpg?w=826&t=st=1683615960~exp=1683616560~hmac=bada74238d2baf53bb60ba96b0f66f5ec66d4f6020d82a1917c371d35670b646',
-      image: 'https://cdn-icons-png.flaticon.com/512/1177/1177568.png',
-      isAdmin: true,
+      nationalId: 'https://img.freepik.com/free-vector/id-card-illustration_23-2147833318.jpg',
+      image: 'https://cdn-icons-png.flaticon.com/512/453/453497.png?w=996&t=st=1684488294~exp=1684488894~hmac=9b33c967ced87a7313135b14f577416b4a527e5b4362fdecfcb0ce00f607fc40',
+      isDelivery: true,
     );
     FirebaseFirestore.instance
         .collection('users')

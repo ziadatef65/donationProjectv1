@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:donationproject/modules/splash_screen/splash_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../shared/network/local/cache_helper.dart';
 import '../login_page/login_page.dart';
@@ -15,12 +17,11 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 5), () {
-      CacheHelper.saveData(key: 'onBoarding', value: true).then((dynamic value) {
-        if (value = true) {
+
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
-        }
-      });
+              context, MaterialPageRoute(builder: (context) => SplashScreen2()));
+
+
       // Navigator.pushReplacement(
       //   context,
       //   MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -40,10 +41,12 @@ class _SplashPageState extends State<SplashPage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: const Center(
-          child: Text(
+        child:  Center(
+          // child: Image(image: AssetImage('assets/images/bg.png'))
+          
+          child:Text(
             "Donation",
-            style: TextStyle(
+            style: GoogleFonts.cairo(
               color: Colors.white,
               fontSize: 50,
               fontWeight: FontWeight.bold,
